@@ -34,6 +34,10 @@
             <textarea v-model="user.aboutMe" placeholder="About me..."></textarea>
         </div>
         <button @click="submit">Submit</button>
+        <div>
+            <h3 v-for="(item, index) in cities" :key="index">{{item | capitalize}}</h3>
+            <button @click="addCity">Add a city</button>
+        </div>
     </div>
 </template>
 
@@ -50,8 +54,14 @@
                     birthdate:  null,
                     age: null,
                     gender: null,
-                    aboutMe: null
-                }
+                    aboutMe: null,
+                },
+                myArray: [
+                    "tallin",
+                    "paris",
+                    "london",
+                    "helsinki"
+                ]
             }
         },
         computed: {
@@ -62,12 +72,20 @@
                 let currentDate = new Date();
 
                 return currentDate.getFullYear() - birthDate.getFullYear()
+            },
+            cities: function () {
+                let a = this.myArray
+                return a.sort()
             }
         },
         methods: {
             submit: function () {
                 console.log(this.user)
                 // send data to api
+            },
+            addCity: function () {
+               this.myArray.push("tbilisi")
+               this.myArray.push("antananarivo")
             }
         },
         filters: {
